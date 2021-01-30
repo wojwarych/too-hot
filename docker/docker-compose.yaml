@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  backend:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+    restart: "always"
+    command: "uvicorn main:app --reload --host 0.0.0.0"
+    image: backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../src:/~/src

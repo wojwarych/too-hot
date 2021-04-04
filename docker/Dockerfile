@@ -11,12 +11,13 @@ RUN pip install --upgrade pip
 
 RUN useradd -ms /bin/bash $APP_USER
 USER $APP_USER
+ENV HOME /home/${APP_USER}
 RUN mkdir "${HOME}/src"
 WORKDIR "${HOME}/src"
 
 COPY requirements.txt /tmp/
 RUN pip install --user -r /tmp/requirements.txt
-ENV HOME /home/${APP_USER}
 ENV PATH="${HOME}/.local/bin:${PATH}"
 
 COPY --chown=$APP_USER ./src .
+RUN cp reformat.sh ${HOME}/.local/bin/

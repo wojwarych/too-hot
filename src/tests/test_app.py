@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 
 from ..main import app
 from ..models import Sequence
-from .factories import fake_sequence
+from .factories import fake_sequence, fake_incorrect_sequence
 
 client = TestClient(app)
 
@@ -19,7 +19,15 @@ def test_list_sequences_returns_correct_data_on_200(mock_sequences, mongodb):
 
 def test_create_sequence_returns_correct_data_on_201(mongodb):
     fake_seq = fake_sequence()
+
     response = client.post("/sequences/", json=fake_seq)
 
     assert response.status_code == 201
     assert response.json()["name"] == fake_seq["name"]
+
+def test_create_sequence_returns_400_on_incorrect_sequence(mongodb):
+    fake_seq = fake_incorrect_sequence()
+
+    response = client.post("/sequences/", json=fake_seq)
+
+    assert response.status_code == 422

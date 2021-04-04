@@ -1,7 +1,9 @@
 from typing import Optional
 
 from bson import ObjectId
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ValidationError, validator
+
+NUCLEOTIDES = ["A", "C", "G", "T"]
 
 
 class PyObjectId(BaseModel):
@@ -28,3 +30,11 @@ class Sequence(BaseModel):
     class Config:
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
+
+    @validator("sequence")
+    def sequence_must_contain_correct_nucleotides(cls, v):
+        dna_seq = v.upper()
+        for nuc in dna_seq:
+            if nuc not in NUCLEOTIDES:
+                raise ValueError("Sequence is invalid!")
+        return v

@@ -1,9 +1,21 @@
+import random
+
 from faker import Faker
 
-from ..models import Sequence
+from ..models import NUCLEOTIDES, Sequence
 
 fake = Faker()
 
 
 def fake_sequence():
-    return Sequence(name=fake.pystr(), sequence=fake.pystr()).dict()
+    return dict(
+        name=fake.pystr(),
+        sequence="".join(random.choices(NUCLEOTIDES, k=fake.pyint()))
+    )
+
+
+def fake_incorrect_sequence():
+    return dict(
+        name=fake.pystr(),
+        sequence=fake.pystr()
+    )

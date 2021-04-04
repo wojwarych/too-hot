@@ -10,7 +10,7 @@ services:
     image: backend
     ports:
       - "8000:8000"
-    env_file: ../.env
+    env_file: ../local.env
     volumes:
       - "../src:${APP_HOME}/src"
 
@@ -19,6 +19,7 @@ services:
     ports:
       - "27017:27017"
     restart: unless-stopped
+    env_file: ../local.env
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${PASSWORD}

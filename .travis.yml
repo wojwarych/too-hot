@@ -1,0 +1,11 @@
+language: python
+
+python:
+  - "3.8"
+
+services:
+  - docker
+
+script:
+  - docker-compose -f docker/docker-compose.yaml build
+  - ./scripts/ci.sh

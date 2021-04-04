@@ -3,9 +3,9 @@ import sys
 import pytest
 from fastapi.testclient import TestClient
 
-from .factories import fake_sequence
 from ..main import app
 from ..models import Sequence
+from .factories import fake_sequence
 
 client = TestClient(app)
 

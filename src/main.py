@@ -3,7 +3,6 @@ from fastapi import FastAPI
 from db import db
 from models import Sequence
 
-
 app = FastAPI()
 
 

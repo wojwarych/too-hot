@@ -5,7 +5,6 @@ from pydantic import BaseModel, Field
 
 
 class PyObjectId(BaseModel):
-
     @classmethod
     def __get_validators(cls):
         yield cls.validate
@@ -28,6 +27,4 @@ class Sequence(BaseModel):
 
     class Config:
         arbitrary_types_allowed = True
-        json_encoders = {
-            ObjectId: str
-        }
+        json_encoders = {ObjectId: str}

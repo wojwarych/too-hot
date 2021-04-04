@@ -10,5 +10,17 @@ services:
     image: backend
     ports:
       - "8000:8000"
+    env_file: ../.env
     volumes:
-      - ../src:/~/src
+      - "../src:${APP_HOME}/src"
+
+  mongodb:
+    image: mongo:4.4.4-bionic
+    ports:
+      - "27017:27017"
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${PASSWORD}
+    volumes:
+      - ../mongodb:/data/db

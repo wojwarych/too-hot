@@ -5,4 +5,4 @@ if [[ $1 -eq "CI" ]]; then
   DIFF="--diff"
 fi
 
-docker-compose -f ./docker/docker-compose.yaml exec -e CHECK=$CHECK -e DIFF=$DIFF backend reformat.sh
+docker-compose -f ./docker/docker-compose.yaml run --rm -e CHECK=$CHECK -e DIFF=$DIFF backend reformat.sh

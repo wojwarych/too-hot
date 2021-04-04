@@ -13,6 +13,8 @@ services:
     env_file: ../.env.dev
     volumes:
       - ../src:${APP_HOME}/src
+    depends_on:
+      - "mongodb"
 
   mongodb:
     image: mongo:4.4.4-bionic

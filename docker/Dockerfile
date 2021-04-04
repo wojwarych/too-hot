@@ -3,6 +3,8 @@ FROM python:3.8.7-slim-buster as builder
 LABEL maintainer="Wojtek Warych woj.warych@gmail.com" \
       version="0.0.1"
 
+ENV PYTHONDONTWRITEBYTECODE 1
+
 ENV APP_USER=dev
 
 RUN pip install --upgrade pip

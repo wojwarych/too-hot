@@ -4,15 +4,17 @@ LABEL maintainer="Wojtek Warych woj.warych@gmail.com" \
       version="0.0.1"
 
 ENV APP_USER=dev
-ENV APP_HOME="/home/${APP_USER}"
 
 RUN pip install --upgrade pip
 
 RUN useradd -ms /bin/bash $APP_USER
 USER $APP_USER
-WORKDIR "${APP_HOME}/src"
+RUN mkdir "${HOME}/src"
+WORKDIR "${HOME}/src"
 
 COPY requirements.txt /tmp/
 RUN pip install --user -r /tmp/requirements.txt
-ENV PATH="${APP_HOME}/.local/bin:${PATH}"
-COPY ./src .
+ENV HOME /home/${APP_USER}
+ENV PATH="${HOME}/.local/bin:${PATH}"
+
+COPY --chown=$APP_USER ./src .
